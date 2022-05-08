@@ -41,7 +41,6 @@ class FirebaseDataSource {
     return MobileModel.fromJson(map.data()!);
   }
 
-
   Future<bool> adminLogin({required String email, required String password}) async{
     DocumentSnapshot<Map<String, dynamic>> documentSnapshot = await adminsCollection.doc(email).get(const GetOptions(source: Source.serverAndCache));
     if (documentSnapshot.exists){
@@ -68,7 +67,6 @@ class FirebaseDataSource {
         .doc(adminModel.email)
         .set(adminModel.toJson());
   }
-
 
   Stream<List<List<String>>> getAllCoversCompatibilities() async*{
     yield* coversCompatibilitiesCollection.snapshots().map((collections) {

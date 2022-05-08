@@ -11,7 +11,6 @@ abstract class AdminsRepository{
 
   Future<void> logInAsUser();
 
-
   Future<void> signOut();
 
   Future<List<AdminModel>> getAdmins();

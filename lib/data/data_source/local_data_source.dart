@@ -14,7 +14,6 @@ class LocalDataSource{
 
   bool isAdminSignedIn(){
     var result = localStorage.read<bool>('admin');
-    print('is admin singed in $result');
     return result?? false;
   }
 

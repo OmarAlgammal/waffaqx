@@ -7,10 +7,12 @@ class MobilesObserver extends BlocObserver{
 
   @override
   void onCreate(BlocBase bloc) {
+    super.onCreate(bloc);
     print('$bloc');
+
   }
 
-  @override
+
   void onClose(BlocBase bloc) {
     super.onClose(bloc);
     print('$bloc');

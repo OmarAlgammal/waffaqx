@@ -77,34 +77,12 @@ class CompatibilitiesUseCases{
           }
         }
         allCompatibilities.add(_mobilesFiltrationHelper.getMobilesWithTheme(mobiles: compatibilities));
-        print('compatibilities length is ${compatibilities.length}');
         compatibilities.clear();
       }
 
       return allCompatibilities;
 
     });
-
-    // await for (List<List<String>>? allLists in allCompatibilitiesById){
-    //   allCompatibilitiesMobiles.clear();
-    //   if (allLists != null){
-    //     for (List<String> list in allLists){
-    //       allCompatibilitiesMobiles.clear();
-    //       List<MobileWithThemeModel> mobilesWithTheme = [];
-    //       for (String id in list){
-    //         MobileModel mobile = await _mobilesRepository.getMobile(mobileId: id);
-    //         mobilesWithTheme.add(_mobilesFiltrationHelper.getMobileWithTheme(mobile));
-    //       }
-    //       allCompatibilitiesMobiles.add(mobilesWithTheme);
-    //       print('length of mobiles with theme ${mobilesWithTheme.length}');
-    //       yield allCompatibilitiesMobiles;
-    //     }
-    //   }
-    //   else if (allCompatibilitiesMobiles.isEmpty){
-    //     print('yield here 0');
-    //     yield [];
-    //   }
-    // }
 
   }
 
@@ -163,15 +141,6 @@ class CompatibilitiesUseCases{
       ids.removeAt(index);
       await _compatibilitiesRepository.addCoversCompatibility(docId: ids.first, compatibilities: ids);
     }
-
-    // if (index == 0){
-    //   await _compatibilitiesRepository.deleteCoversCollections(id: ids[index]);
-    //   ids.removeAt(index);
-    //   await _compatibilitiesRepository.addCoversCompatibility(docId: ids[index], compatibilities: ids);
-    // }
-    // else {
-    //   ids.removeAt(index);
-    //   await _compatibilitiesRepository.addCoversCompatibility(docId: ids[0], compatibilities: ids);
 
   }
 

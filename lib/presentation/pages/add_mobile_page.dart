@@ -195,6 +195,7 @@ class _AddMobilePageState extends State<AddMobilePage> {
             ),
 // display size
             TextFormField(
+              keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 labelText: displaySizeHintText,
               ),

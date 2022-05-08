@@ -12,6 +12,7 @@ class SetAdminCubit extends Cubit<SetAdminState>{
 
 
   Future<void> setAdmin({required AdminModel adminModel}) async{
+    emit(SetAdminInProgress());
     await _adminsUseCases.setAdmin(adminModel: adminModel).then((value) => emit(AdminSetSuccessfully()))
         .catchError((error, stackTrack) => emit(SetAdminFailure()));
   }

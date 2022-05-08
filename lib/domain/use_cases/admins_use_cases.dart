@@ -11,7 +11,6 @@ class AdminsUseCases{
   String whoIsSignedIn(){
     bool userResult = _adminsRepository.isUserSignedIn();
     bool adminResult = _adminsRepository.isAdminSignedIn();
-    print('who is singed in $userResult and admin is $adminResult');
     if (!userResult && !adminResult){
       return 'noUser';
     }else if (userResult){
