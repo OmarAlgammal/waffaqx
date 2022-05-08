@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wafaq_x/presentation/entities/requiredMobileModel.dart';
-import 'package:wafaq_x/extensions/roundedCorner.dart';
 import 'package:wafaq_x/presentation/bloc/all_mobiles_cubit/all_mobiles_cubit.dart';
 import 'package:wafaq_x/presentation/bloc/all_mobiles_cubit/all_mobiles_state.dart';
 import 'package:wafaq_x/presentation/constants/constantsColors.dart';
 import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
 import 'package:wafaq_x/presentation/constants/texts/texts.dart';
+import 'package:wafaq_x/presentation/extensions/roundedCorner.dart';
 import 'package:wafaq_x/presentation/helper/mobiles_filtration_helper.dart';
 import 'package:wafaq_x/presentation/widgets/buttons/wipeTextButton.dart';
 import 'package:wafaq_x/presentation/widgets/texts/helper_text.dart';

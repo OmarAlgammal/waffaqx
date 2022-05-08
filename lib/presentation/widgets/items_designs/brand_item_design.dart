@@ -2,9 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wafaq_x/presentation/constants/constantsColors.dart';
-import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
-import 'package:wafaq_x/extensions/roundedCorner.dart';
 import 'package:wafaq_x/presentation/entities/arguments/brandScreenArguments.dart';
+import 'package:wafaq_x/presentation/extensions/roundedCorner.dart';
 import 'package:wafaq_x/presentation/pages/brand_page.dart';
 
 class BrandItemDesign extends StatelessWidget {

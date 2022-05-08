@@ -12,7 +12,7 @@ import 'package:wafaq_x/presentation/entities/requiredMobileModel.dart';
 import 'package:wafaq_x/presentation/constants/constantsColors.dart';
 import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
 import 'package:wafaq_x/presentation/entities/arguments/compatibilities_page_arguments.dart';
-import 'package:wafaq_x/extensions/wrappedRoundedCorner.dart';
+import 'package:wafaq_x/presentation/extensions/wrappedRoundedCorner.dart';
 import 'package:wafaq_x/presentation/widgets/images/brandLogo.dart';
 import 'package:wafaq_x/presentation/widgets/lists/compatibilities_list.dart';
 import 'package:wafaq_x/presentation/widgets/texts/error_occurred.dart';

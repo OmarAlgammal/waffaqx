@@ -5,7 +5,7 @@ import 'package:wafaq_x/presentation/bloc/all_mobiles_cubit/all_mobiles_state.da
 import 'package:wafaq_x/presentation/constants/constantsColors.dart';
 import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
 import 'package:wafaq_x/presentation/constants/texts/texts.dart';
-import 'package:wafaq_x/extensions/roundedCorner.dart';
+import 'package:wafaq_x/presentation/extensions/roundedCorner.dart';
 import 'package:wafaq_x/presentation/helper/mobiles_filtration_helper.dart';
 import 'package:wafaq_x/presentation/widgets/buttons/wipeTextButton.dart';
 import 'package:wafaq_x/presentation/widgets/lists/mobiles_list.dart';

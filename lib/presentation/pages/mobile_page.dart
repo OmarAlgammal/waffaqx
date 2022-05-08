@@ -7,11 +7,11 @@ import 'package:wafaq_x/presentation/constants/constantsColors.dart';
 import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
 import 'package:wafaq_x/presentation/constants/texts/texts.dart';
 import 'package:wafaq_x/presentation/entities/arguments/mobile_page_arguments.dart';
+import 'package:wafaq_x/presentation/extensions/wrappedRoundedCorner.dart';
 import 'package:wafaq_x/presentation/helper/helper.dart';
 import 'package:wafaq_x/presentation/widgets/icons/icon_from_assets.dart';
 import 'package:wafaq_x/presentation/widgets/images/brandLogo.dart';
 import 'package:wafaq_x/presentation/widgets/items_designs/mobile_feature_item_desing.dart';
-import 'package:wafaq_x/extensions/wrappedRoundedCorner.dart';
 
 class MobilePage extends StatelessWidget {
 
