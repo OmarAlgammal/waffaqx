@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "701126932066",
+    "project_id": "wafaq-x",
+    "storage_bucket": "wafaq-x.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:701126932066:android:a7771d7b469cb726f8433b",
+        "android_client_info": {
+          "package_name": "com.devomar.wafaq_x"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "701126932066-vsv23ljuvjrmmp7incrjpk8j9bj9it2n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLHRTjYUL5BNg6oRTijykJl216IklMSdA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "701126932066-vsv23ljuvjrmmp7incrjpk8j9bj9it2n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

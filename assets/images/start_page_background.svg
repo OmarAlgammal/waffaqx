@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="417" height="896" viewBox="0 0 417 896">
+  <g id="start_page_background" transform="translate(3)">
+    <rect id="Rectangle_241" data-name="Rectangle 241" width="414" height="896" fill="#fff"/>
+    <g id="Group_1031" data-name="Group 1031" transform="translate(99.33 -182.296)">
+      <path id="Rectangle_142" data-name="Rectangle 142" d="M4.9,4.9V87.112H40.945V4.9H4.9M4.9,0H40.945a4.9,4.9,0,0,1,4.9,4.9V87.112a4.9,4.9,0,0,1-4.9,4.9H4.9a4.9,4.9,0,0,1-4.9-4.9V4.9A4.9,4.9,0,0,1,4.9,0Z" transform="translate(108.411 327.84)" fill="#008a3c"/>
+      <path id="Rectangle_143" data-name="Rectangle 143" d="M4.9,4.9V87.112H40.945V4.9H4.9M4.9,0H40.945a4.9,4.9,0,0,1,4.9,4.9V87.112a4.9,4.9,0,0,1-4.9,4.9H4.9a4.9,4.9,0,0,1-4.9-4.9V4.9A4.9,4.9,0,0,1,4.9,0Z" transform="translate(56.67 327.84)" fill="#95ceae"/>
+      <path id="Icon_awesome-equals" data-name="Icon awesome-equals" d="M44.053,28.207H3.389A3.389,3.389,0,0,0,0,31.6v3.389a3.389,3.389,0,0,0,3.389,3.389H44.053a3.389,3.389,0,0,0,3.389-3.389V31.6A3.389,3.389,0,0,0,44.053,28.207Zm0-20.332H3.389A3.389,3.389,0,0,0,0,11.264v3.389a3.389,3.389,0,0,0,3.389,3.389H44.053a3.389,3.389,0,0,0,3.389-3.389V11.264A3.389,3.389,0,0,0,44.053,7.875Z" transform="translate(81.574 362.585)" fill="#008a3c"/>
+    </g>
+    <path id="Path_241" data-name="Path 241" d="M-3305,384.684s256.79-209.136,274.85-289.666-267.292-123.8-233.579-170.674S-2891-337.86-2891-337.86h-414Z" transform="translate(3302 337.86)" fill="#95ceae"/>
+    <path id="Intersection_5" data-name="Intersection 5" d="M3463,488.308a4.9,4.9,0,0,1,4.906-4.9h29.915c-2.379,1.633-4.767,3.276-7.13,4.9h-22.785V504.12c-1.638,1.145-3.283,2.3-4.906,3.436Z" transform="translate(-3307 -337.86)" fill="#008a3c"/>
+  </g>
+</svg>
