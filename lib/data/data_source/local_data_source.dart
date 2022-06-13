@@ -1,6 +1,5 @@
 
 
-import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 
 class LocalDataSource{
@@ -8,7 +7,6 @@ class LocalDataSource{
 
   bool isUserSignedIn(){
     var result = localStorage.read<bool>('user');
-    print('is user singed in $result');
     return result?? false;
   }
 

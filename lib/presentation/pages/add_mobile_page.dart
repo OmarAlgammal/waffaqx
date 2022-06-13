@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wafaq_x/data/data_source/firebase_data_source.dart';
-import 'package:wafaq_x/data/entities/mobile_model/battery.dart';
-import 'package:wafaq_x/data/entities/mobile_model/dimensions_and_weight.dart';
-import 'package:wafaq_x/data/entities/mobile_model/display.dart';
 import 'package:wafaq_x/data/repos/mobiles_repository_impl.dart';
 import 'package:wafaq_x/domain/use_cases/mobiles_use_cases.dart';
 import 'package:wafaq_x/presentation/bloc/add_mobile_cubit/add_mobile_cubit.dart';
@@ -93,29 +90,14 @@ class _AddMobilePageState extends State<AddMobilePage> {
                       if (mobileFromKey.currentState!.validate()){
                         MobileModel mobileModel = MobileModel(
                             brandName: _brandName,
-                            mobileId: '${mobileNameController.text}-${_helper.getRandomNumber()}',
+                            mobileId: mobileNameController.text,
                             mobileName: mobileNameController.text,
-                            display: Display(
-                              displayResolution: displayResolutionController.text,
-                              displaySize: _helper.toDouble(displaySizeController.text),
-                              displayType: displayTypeController.text,
-                              frequency: displayFrequencyController.text,
-                              pixelDensity: pixelDensityController.text,
-                            ),
-                            dimensionsAndWeight: DimensionsAndWeight(
-                              dimensions: dimensionsController.text,
-                              weight: weightController.text,
-                            ),
-                            networkTechnology: networkTechnologyController.text,
+                            displaySize: _helper.toDouble(displaySizeController.text),
                             processor: processorController.text,
                             storageAndRam: _helper.splitTextToList(text: storageAndRamController.text),
                             mainCameras: _helper.splitTextToList(text: mainCameraController.text),
                             selfieCameras: _helper.splitTextToList(text: selfieCameraController.text),
-                            battery: Battery(
-                              battery: batteryController.text,
-                              chargingSpeed: chargingInletController.text,
-                            ),
-                            chargingInlet: chargingInletController.text,
+                            battery: batteryController.text,
                             os: osController.text,
                             hasNotch: _hasNotch
                         );
@@ -180,19 +162,6 @@ class _AddMobilePageState extends State<AddMobilePage> {
                 return null;
               },
             ),
-// display type
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: displayTypeHintText,
-              ),
-              controller: displayTypeController,
-              validator: (text) {
-                if (text == null || text.isEmpty) {
-                  return displayTypeErrorText;
-                }
-                return null;
-              },
-            ),
 // display size
             TextFormField(
               keyboardType: TextInputType.number,
@@ -203,87 +172,6 @@ class _AddMobilePageState extends State<AddMobilePage> {
               validator: (text) {
                 if (text == null || text.isEmpty) {
                   return displaySizeErrorText;
-                }
-                return null;
-              },
-            ),
-// display resolution field
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: displayResolutionHintText,
-              ),
-              controller: displayResolutionController,
-              validator: (text) {
-                if (text == null || text.isEmpty) {
-                  return displayResolutionErrorText;
-                }
-                return null;
-              },
-            ),
-// pixel density field
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: pixelDensityHintText,
-              ),
-              controller: pixelDensityController,
-              validator: (text) {
-                if (text == null || text.isEmpty) {
-                  return pixelDensityErrorText;
-                }
-                return null;
-              },
-            ),
-// display frequency field
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: displayFrequencyHintText,
-              ),
-              controller: displayFrequencyController,
-              validator: (text) {
-                if (text == null || text.isEmpty) {
-                  return displayFrequencyErrorText;
-                }
-                return null;
-              },
-            ),
-// dimensions field
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: dimensionsHintText,
-              ),
-              keyboardType: TextInputType.text,
-              controller: dimensionsController,
-              validator: (text) {
-                if (text == null || text.isEmpty) {
-                  return dimensionsErrorText;
-                }
-                return null;
-              },
-            ),
-// weight field
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: weightHintText,
-              ),
-              keyboardType: TextInputType.text,
-              controller: weightController,
-              validator: (text) {
-                if (text == null || text.isEmpty) {
-                  return weightErrorText;
-                }
-                return null;
-              },
-            ),
-// network technology field
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: networkTechnologyHintText,
-              ),
-              keyboardType: TextInputType.text,
-              controller: networkTechnologyController,
-              validator: (text) {
-                if (text == null || text.isEmpty) {
-                  return networkTechnologyErrorText;
                 }
                 return null;
               },
@@ -356,34 +244,6 @@ class _AddMobilePageState extends State<AddMobilePage> {
                 return null;
               },
             ),
-// charging speed field
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: chargingSpeedHintText,
-              ),
-              controller: chargingSpeedController,
-              validator: (text) {
-                if (text == null || text.isEmpty) {
-                  return chargingSpeedErrorText;
-                }
-                return null;
-              },
-            ),
-
-
-// charging inlet field
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: chargingInletHintText,
-              ),
-              controller: chargingInletController,
-              validator: (text) {
-                if (text == null || text.isEmpty) {
-                  return chargingInletErrorText;
-                }
-                return null;
-              },
-            ),
 // os field
             TextFormField(
               decoration: const InputDecoration(
@@ -397,7 +257,6 @@ class _AddMobilePageState extends State<AddMobilePage> {
                 return null;
               },
             ),
-
 // gap
             gap16,
 // has notch check box

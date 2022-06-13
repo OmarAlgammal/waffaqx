@@ -70,7 +70,8 @@ class _AdminRegisterPageState extends State<AdminRegisterPage> {
                                 SizedBox(
                                   height: size56,
                                   child: TextFormField(
-                                    controller: _emailController,
+                                    // todo: remove this email before uploading on google play
+                                    controller: _emailController..text = 'omar@waffaqx.com',
                                     validator: (value){
                                       if (value!.trim().isEmpty){
                                         return '';
@@ -95,7 +96,8 @@ class _AdminRegisterPageState extends State<AdminRegisterPage> {
                                 SizedBox(
                                   height: size56,
                                   child: TextFormField(
-                                    controller: _passwordController,
+                                    // todo: remove this password before uploading on google play
+                                    controller: _passwordController..text = 'omar',
                                     obscureText: true,
                                     validator: (value){
                                       if (value!.trim().isEmpty){

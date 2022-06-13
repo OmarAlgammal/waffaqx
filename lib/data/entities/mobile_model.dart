@@ -1,9 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:wafaq_x/data/entities/mobile_model/battery.dart';
-import 'package:wafaq_x/data/entities/mobile_model/dimensions_and_weight.dart';
-import 'package:wafaq_x/data/entities/mobile_model/display.dart';
-
-
 
 part 'mobile_model.g.dart';
 part 'mobile_model.freezed.dart';
@@ -16,12 +11,7 @@ class MobileModel with _$MobileModel{
 
     required String mobileId,
     required String mobileName,
-// display
-    required Display display,
-// dimensions and weight
-    required DimensionsAndWeight dimensionsAndWeight,
-// network technology
-    required String networkTechnology,
+    required double displaySize,
 // processor
     required String processor,
 // storage and ram
@@ -32,9 +22,7 @@ class MobileModel with _$MobileModel{
 //   selfie cameras
     required List<String> selfieCameras,
 // battery
-    required Battery battery,
-// charging inlet
-    required String chargingInlet,
+    required String battery,
 // os
     required String os,
 // notch
@@ -48,15 +36,12 @@ class MobileModel with _$MobileModel{
       brandName,
       mobileId,
       mobileName,
-      display,
-      dimensionsAndWeight,
-      networkTechnology,
+      displaySize,
       processor,
       storageAndRam,
       mainCameras,
       selfieCameras,
       battery,
-      chargingInlet,
       os,
       hasNotch,
     ];

@@ -133,11 +133,11 @@ class MobilesFiltrationHelper{
 
     String requiredBrand = requiredMobile.brandName;
     String requiredMobileName = requiredMobile.mobileName;
-    double requiredDisplaySize = requiredMobile.display.displaySize;
+    double requiredDisplaySize = requiredMobile.displaySize;
 
     String comingBrand = comingMobile.brandName;
     String comingMobileName = comingMobile.mobileName;
-    double comingDisplaySize = comingMobile.display.displaySize;
+    double comingDisplaySize = comingMobile.displaySize;
 
     if (requiredBrand.toLowerCase() == appleText.toLowerCase()){
       if (requiredBrand == comingBrand
@@ -195,7 +195,7 @@ class MobilesFiltrationHelper{
         String comingMobileName = mobiles[mobileModelIndex].mobileName.toLowerCase();
 
         if (comingBrand == requiredBrandName
-            && comingModel.display.displaySize == mobile.display.displaySize
+            && comingModel.displaySize == mobile.displaySize
             && requiredMobileName != comingMobileName){
           filteredList.add(getMobileWithTheme(comingModel));
         }
@@ -213,7 +213,7 @@ class MobilesFiltrationHelper{
           String comingBrandName = mobiles[mobileModelIndex].brandName.toLowerCase();
           String comingMobileName = mobiles[mobileModelIndex].mobileName.toLowerCase();
           MobileModel comingMobile = mobiles[mobileModelIndex];
-          double differenceBetweenTwoScreenSizes = double.parse((comingMobile.display.displaySize - mobile.display.displaySize).abs().toStringAsFixed(2));
+          double differenceBetweenTwoScreenSizes = double.parse((comingMobile.displaySize - mobile.displaySize).abs().toStringAsFixed(2));
 
           if (brandName == comingBrandName
               && comingBrandName != appleText.toLowerCase()

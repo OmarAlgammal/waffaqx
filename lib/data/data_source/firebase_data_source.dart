@@ -71,9 +71,7 @@ class FirebaseDataSource {
   Stream<List<List<String>>> getAllCoversCompatibilities() async*{
     yield* coversCompatibilitiesCollection.snapshots().map((collections) {
       return collections.docs.map((doc) {
-        print('here ${doc.data().values.toString()}');
         List<dynamic> list = doc.data().values.toList()[0];
-        print('list is ${list.toString()}');
         return list.cast<String>();
       }).toList();
     });
