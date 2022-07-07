@@ -11,6 +11,7 @@ import 'package:wafaq_x/presentation/entities/arguments/compatibilities_page_arg
 import 'package:wafaq_x/presentation/entities/arguments/mobile_page_arguments.dart';
 import 'package:wafaq_x/presentation/pages/compatibilities_page.dart';
 import 'package:wafaq_x/presentation/pages/mobile_page.dart';
+import 'package:wafaq_x/presentation/utilities/routes.dart';
 
 class MobileItemDesign extends StatelessWidget {
   const MobileItemDesign({Key? key, required this.mobileWithTheme}) : super(key: key);
@@ -31,7 +32,7 @@ class MobileItemDesign extends StatelessWidget {
           BlocProvider.of<GlassCompatibilitiesCubit>(context)
               .loadGlassCompatibilities(requiredMobile: mobileWithTheme.mobileModel);
 
-          Navigator.pushNamed(context, CompatibilitiesPage.routName, arguments: CompatibilitiesPageArgument(mobileWithTheme: mobileWithTheme));
+          Navigator.pushNamed(context, AppRoutes.compatibilitiesPage, arguments: CompatibilitiesPageArgument(mobileWithTheme: mobileWithTheme));
         },
           contentPadding: paddingH8,
           tileColor: mobileWithTheme.brandColor,
@@ -49,7 +50,7 @@ class MobileItemDesign extends StatelessWidget {
               color: whiteColor,
             ),
             onPressed: (){
-              Navigator.pushNamed(context, MobilePage.routeName, arguments: MobilePageArguments(mobileWithTheme: mobileWithTheme));
+              Navigator.pushNamed(context, AppRoutes.mobilePage, arguments: MobilePageArguments(mobileWithTheme: mobileWithTheme));
             },
           )
       ),

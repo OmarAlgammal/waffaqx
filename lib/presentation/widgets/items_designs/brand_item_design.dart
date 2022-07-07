@@ -5,6 +5,7 @@ import 'package:wafaq_x/presentation/constants/constantsColors.dart';
 import 'package:wafaq_x/presentation/entities/arguments/brandScreenArguments.dart';
 import 'package:wafaq_x/presentation/extensions/roundedCorner.dart';
 import 'package:wafaq_x/presentation/pages/brand_page.dart';
+import 'package:wafaq_x/presentation/utilities/routes.dart';
 
 class BrandItemDesign extends StatelessWidget {
   const BrandItemDesign({Key? key, required this.brandName, required this.brandLogo, required this.brandColor}) : super(key: key);
@@ -16,7 +17,7 @@ class BrandItemDesign extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: (){
-        Navigator.pushNamed(context, BrandPage.routeName,
+        Navigator.pushNamed(context, AppRoutes.brandPage,
             arguments: BrandScreenArguments(
                 brandName: brandName,
                 brandLogo: brandLogo,

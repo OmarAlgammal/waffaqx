@@ -15,12 +15,9 @@ import 'package:wafaq_x/presentation/widgets/images/search_helper_results.dart';
 import 'package:wafaq_x/presentation/widgets/texts/error_occurred.dart';
 import 'package:wafaq_x/presentation/widgets/texts/loading.dart';
 import 'package:wafaq_x/presentation/widgets/texts/helper_text.dart';
-import 'package:wafaq_x/presentation/widgets/icons/wipe_icon_button.dart';
 
 class SearchForCompatibilitiesPage extends StatefulWidget {
   const SearchForCompatibilitiesPage({Key? key}) : super(key: key);
-
-  static String routeName = 'searchForCompatibilitiesPage';
 
   @override
   _SearchForCompatibilitiesPageState createState() =>

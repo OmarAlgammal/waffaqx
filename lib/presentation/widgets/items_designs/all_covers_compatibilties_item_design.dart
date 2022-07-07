@@ -9,6 +9,7 @@ import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
 import 'package:wafaq_x/presentation/constants/constantsIcons.dart';
 import 'package:wafaq_x/presentation/entities/arguments/compatibilities_page_arguments.dart';
 import 'package:wafaq_x/presentation/pages/compatibilities_page.dart';
+import 'package:wafaq_x/presentation/utilities/routes.dart';
 
 
 class AllCoversCompatibilitiesListItemDesign extends StatelessWidget {
@@ -33,7 +34,7 @@ class AllCoversCompatibilitiesListItemDesign extends StatelessWidget {
               borderRadius: circular12,
             ),
             onTap: (){
-              Navigator.pushNamed(context, CompatibilitiesPage.routName, arguments: CompatibilitiesPageArgument(mobileWithTheme: mobilesWithTheme[index]));
+              Navigator.pushNamed(context, AppRoutes.compatibilitiesPage, arguments: CompatibilitiesPageArgument(mobileWithTheme: mobilesWithTheme[index]));
             },
             title: Text(
               mobilesWithTheme[index].mobileModel.mobileName,

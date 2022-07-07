@@ -28,7 +28,6 @@ import '../entities/arguments/brandScreenArguments.dart';
 class BrandPage extends StatefulWidget {
   const BrandPage({Key? key}) : super(key: key);
 
-  static const String routeName = 'BrandScreen';
 
   @override
   State<BrandPage> createState() => _BrandPageState();
@@ -93,7 +92,6 @@ class _BrandPageState extends State<BrandPage> {
         statusBarIconBrightness: Brightness.light,
       ),
       backgroundColor: arguments.brandColor,
-      toolbarHeight: size72,
       titleSpacing: size0,
       elevation: size12,
       shadowColor: arguments.brandColor,
@@ -118,7 +116,6 @@ class _BrandPageState extends State<BrandPage> {
         statusBarIconBrightness: Brightness.light,
       ),
       backgroundColor: arguments.brandColor,
-      toolbarHeight: size72,
       titleSpacing: size8,
       elevation: size12,
       shadowColor: arguments.brandColor,

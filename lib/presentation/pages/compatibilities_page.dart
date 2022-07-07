@@ -25,7 +25,6 @@ import '../widgets/texts/helper_text.dart';
 class CompatibilitiesPage extends StatefulWidget {
   const CompatibilitiesPage({Key? key}) : super(key: key);
 
-  static String routName = 'addCompatibilitiesPage';
 
   @override
   _CompatibilitiesPageState createState() => _CompatibilitiesPageState();

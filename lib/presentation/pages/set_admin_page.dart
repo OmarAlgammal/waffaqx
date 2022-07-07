@@ -17,7 +17,6 @@ import 'package:wafaq_x/presentation/widgets/show_my_snack_bar.dart';
 class SetAdminPage extends StatefulWidget {
   const SetAdminPage({Key? key}) : super(key: key);
 
-  static String routeName = 'add_admin_page';
 
   @override
   _SetAdminPageState createState() => _SetAdminPageState();
@@ -55,7 +54,7 @@ class _SetAdminPageState extends State<SetAdminPage> {
             ),
           ),
           body: Padding(
-            padding: padding8,
+            padding: paddingH16,
             child: ListView(
               padding: padding0,
               children: [

@@ -30,21 +30,18 @@ import 'package:wafaq_x/presentation/pages/selection_mobile_page.dart';
 import 'package:wafaq_x/presentation/pages/start_page.dart';
 import 'package:wafaq_x/presentation/pages/search_for_compatibilities_page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:wafaq_x/presentation/utilities/routers.dart';
 import 'presentation/bloc/glass_compatibilities_cubit/glass_compatibilities_bloc.dart';
 import 'presentation/bloc/mobile_covers_compatibilities_cubit/mobile_covers_compatibities_bloc.dart';
 import 'presentation/bloc/screens_compatibilities/screensCompatibilitiesBloc.dart';
 
 void main() async {
-
-  BlocOverrides.runZoned(() async{
-
+  BlocOverrides.runZoned(() async {
     WidgetsFlutterBinding.ensureInitialized();
     await GetStorage.init();
     await Firebase.initializeApp();
     runApp(const MyApp());
-  },
-  blocObserver: MobilesObserver());
-
+  }, blocObserver: MobilesObserver());
 }
 
 class MyApp extends StatelessWidget {
@@ -53,63 +50,59 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('we are here');
-    CompatibilitiesUseCases compatibilitiesUseCases = CompatibilitiesUseCases(CompatibilitiesRepositoryImpl(FirebaseDataSource()),
+    CompatibilitiesUseCases compatibilitiesUseCases = CompatibilitiesUseCases(
+        CompatibilitiesRepositoryImpl(FirebaseDataSource()),
         MobilesRepositoryImpl(FirebaseDataSource()));
     return MultiBlocProvider(
       providers: [
         BlocProvider<RegisterCubit>(
-          create: (context) => RegisterCubit(AdminsUseCases(AdminsRepositoryImpl(FirebaseDataSource(), LocalDataSource())))..whoIsSignedIn(),
+          create: (context) => RegisterCubit(AdminsUseCases(
+              AdminsRepositoryImpl(FirebaseDataSource(), LocalDataSource())))
+            ..whoIsSignedIn(),
         ),
         BlocProvider<AllMobilesCubit>(
-          create: (context) => AllMobilesCubit(MobilesUseCases(MobilesRepositoryImpl(FirebaseDataSource())))..loadAllMobiles(),
+          create: (context) => AllMobilesCubit(
+              MobilesUseCases(MobilesRepositoryImpl(FirebaseDataSource())))
+            ..loadAllMobiles(),
         ),
         BlocProvider<ScreensCompatibilitiesCubit>(
-          create: (context) => ScreensCompatibilitiesCubit(compatibilitiesUseCases),
+          create: (context) =>
+              ScreensCompatibilitiesCubit(compatibilitiesUseCases),
         ),
         BlocProvider<GlassCompatibilitiesCubit>(
-          create: (context) => GlassCompatibilitiesCubit(compatibilitiesUseCases),
+          create: (context) =>
+              GlassCompatibilitiesCubit(compatibilitiesUseCases),
         ),
         BlocProvider<MobileCoversCompatibilitiesCubit>(
-          create: (context) => MobileCoversCompatibilitiesCubit(compatibilitiesUseCases),
+          create: (context) =>
+              MobileCoversCompatibilitiesCubit(compatibilitiesUseCases),
         ),
         BlocProvider<DealingWithCoversCompatibilitiesCubit>(
-          create: (context) => DealingWithCoversCompatibilitiesCubit(compatibilitiesUseCases),
+          create: (context) =>
+              DealingWithCoversCompatibilitiesCubit(compatibilitiesUseCases),
         ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        routes: {
-          StartPage.routeName: (context) => const StartPage(),
-          AdminRegisterPage.routeName: (context) => const AdminRegisterPage(),
-          SetAdminPage.routeName: (context) => const SetAdminPage(),
-          HomePage.routeName: (context) => const HomePage(),
-          AllCoversCompatibilitiesPage.routeName: (context) => const AllCoversCompatibilitiesPage(),
-          AddSelectionPage.routeName: (context) => const AddSelectionPage(),
-          SelectionMobilePage.routeName: (context) => const SelectionMobilePage(),
-          AddMobilePage.routeName: (context) => const AddMobilePage(),
-          BrandPage.routeName: (context) => const BrandPage(),
-          SearchForCompatibilitiesPage.routeName: (context) =>
-          const SearchForCompatibilitiesPage(),
-          CompatibilitiesPage.routName: (
-              context) => const CompatibilitiesPage(),
-          MobilePage.routeName: (context) => MobilePage(),
-        },
+        onGenerateRoute: onGenerate,
         theme: ThemeData(
-          primarySwatch: myCustomPrimaryColor,
-          appBarTheme: const AppBarTheme(
-              backgroundColor: brightGrayColor,
-            titleTextStyle: TextStyle(
-              color: blackColor,
-              fontSize: size24,
-            ),
-            elevation: size8,
-            toolbarHeight: size72,
-            systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarColor: brightGrayColor,
-              statusBarIconBrightness: Brightness.dark,
-            )
-          )
-        ),
+            primarySwatch: myCustomPrimaryColor,
+            scaffoldBackgroundColor: whiteColor,
+            appBarTheme: const AppBarTheme(
+                backgroundColor: whiteColor,
+                iconTheme: IconThemeData(
+                  color: blackColor,
+                ),
+                titleTextStyle: TextStyle(
+                  color: blackColor,
+                  fontSize: size24,
+                ),
+                elevation: size0,
+                toolbarHeight: size120,
+                systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarColor: whiteColor,
+                  statusBarIconBrightness: Brightness.dark,
+                ))),
         home: const SafeArea(
           child: Directionality(
             textDirection: TextDirection.rtl,
@@ -119,5 +112,4 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-
 }

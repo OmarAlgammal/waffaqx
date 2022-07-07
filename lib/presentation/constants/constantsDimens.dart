@@ -21,7 +21,7 @@ const EdgeInsets padding12 = EdgeInsets.all(12);
 
 const EdgeInsets paddingH4 = EdgeInsets.symmetric(horizontal: 4);
 const EdgeInsets paddingH8 = EdgeInsets.symmetric(horizontal: 8);
-const EdgeInsets paddingH16 = EdgeInsets.symmetric(horizontal: 8);
+const EdgeInsets paddingH16 = EdgeInsets.symmetric(horizontal: 16);
 
 const EdgeInsets paddingV4 = EdgeInsets.symmetric(vertical: 4);
 const EdgeInsets paddingV8 = EdgeInsets.symmetric(vertical: 8);

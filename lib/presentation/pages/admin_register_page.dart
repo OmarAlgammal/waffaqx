@@ -9,6 +9,7 @@ import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
 import 'package:wafaq_x/presentation/constants/texts/paths.dart';
 import 'package:wafaq_x/presentation/constants/texts/texts.dart';
 import 'package:wafaq_x/presentation/pages/home_page.dart';
+import 'package:wafaq_x/presentation/utilities/routes.dart';
 import 'package:wafaq_x/presentation/widgets/buttons/loading_button.dart';
 import 'package:wafaq_x/presentation/widgets/buttons/circular_button.dart';
 import 'package:wafaq_x/presentation/widgets/show_my_snack_bar.dart';
@@ -17,7 +18,6 @@ import 'package:wafaq_x/presentation/widgets/show_my_snack_bar.dart';
 class AdminRegisterPage extends StatefulWidget {
   const AdminRegisterPage({Key? key}) : super(key: key);
 
-  static String routeName = 'adminRegisterPage';
 
   @override
   _AdminRegisterPageState createState() => _AdminRegisterPageState();
@@ -139,7 +139,7 @@ class _AdminRegisterPageState extends State<AdminRegisterPage> {
                                                 showMySnackBar(context: context, content: adminLoginErrorText, color: redColor);
                                               }
                                               else if (state is AdminSignedInSuccessfully){
-                                                Navigator.pushNamed(context, HomePage.routeName);
+                                                Navigator.pushNamed(context, AppRoutes.homePage);
                                               }
                                             },
                                             builder: (context, state){

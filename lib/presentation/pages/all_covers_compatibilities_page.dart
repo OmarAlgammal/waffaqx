@@ -8,6 +8,7 @@ import 'package:wafaq_x/domain/use_cases/compatibilities_use_cases.dart';
 import 'package:wafaq_x/presentation/bloc/all_covers_compatibilities_bloc/all_covers_compatibiliteies_bloc.dart';
 import 'package:wafaq_x/presentation/bloc/all_covers_compatibilities_bloc/all_covers_compatibilities_event.dart';
 import 'package:wafaq_x/presentation/bloc/all_covers_compatibilities_bloc/all_covers_compatibilities_state.dart';
+import 'package:wafaq_x/presentation/constants/constantsColors.dart';
 import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
 import 'package:wafaq_x/presentation/constants/texts/texts.dart';
 import 'package:wafaq_x/presentation/widgets/lists/all_covers_compatibilities_list.dart';
@@ -17,8 +18,6 @@ import 'package:wafaq_x/presentation/widgets/texts/no_results_found.dart';
 
 class AllCoversCompatibilitiesPage extends StatefulWidget {
   const AllCoversCompatibilitiesPage({Key? key}) : super(key: key);
-
-  static String routeName = 'AllCoversCompatibilitiesPage';
 
   @override
   _AllCoversCompatibilitiesPageState createState() => _AllCoversCompatibilitiesPageState();
@@ -34,7 +33,9 @@ class _AllCoversCompatibilitiesPageState extends State<AllCoversCompatibilitiesP
         textDirection: TextDirection.rtl,
         child: Scaffold(
           appBar: AppBar(
-            automaticallyImplyLeading: false,
+            backgroundColor: whiteColor,
+            automaticallyImplyLeading: true,
+            elevation: size0,
             title: const Text(
               coversCompatibilitiesText,
             ),

@@ -8,6 +8,7 @@ import 'package:wafaq_x/presentation/constants/constantsColors.dart';
 import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
 import 'package:wafaq_x/presentation/constants/texts/texts.dart';
 import 'package:wafaq_x/presentation/pages/selection_mobile_page.dart';
+import 'package:wafaq_x/presentation/utilities/routes.dart';
 import 'package:wafaq_x/presentation/widgets/buttons/circular_button.dart';
 import 'package:wafaq_x/presentation/widgets/buttons/loading_button.dart';
 import 'package:wafaq_x/presentation/widgets/search_box.dart';
@@ -15,8 +16,6 @@ import 'package:wafaq_x/presentation/widgets/show_my_snack_bar.dart';
 
 class AddSelectionPage extends StatefulWidget {
   const AddSelectionPage({Key? key}) : super(key: key);
-
-  static const String routeName = 'compatibilityChoosePage';
 
   @override
   _AddSelectionPageState createState() =>
@@ -58,7 +57,7 @@ class _AddSelectionPageState
                 onPressed: () async {
                   BlocProvider.of<AllMobilesCubit>(context).loadAllMobiles();
                   var result = await Navigator.pushNamed(
-                      context, SelectionMobilePage.routeName);
+                      context, AppRoutes.selectionMobilePage);
                   if (result != null) {
                     firstMobile = result as MobileWithThemeModel;
                     setState(() {
@@ -83,7 +82,7 @@ class _AddSelectionPageState
                 onPressed: () async {
                   BlocProvider.of<AllMobilesCubit>(context).loadAllMobiles();
                   var result = await Navigator.pushNamed(
-                      context, SelectionMobilePage.routeName);
+                      context, AppRoutes.selectionMobilePage);
                   if (result != null) {
                     secondMobile = result as MobileWithThemeModel;
                     setState(() {

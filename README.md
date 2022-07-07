@@ -1,8 +1,6 @@
 # wafaq_x
 
 An Application For Screen Protector Compatibility For Mobiles And Mobiles Specifications And More
-//
-//
 
 ## Getting Started
 

@@ -20,9 +20,6 @@ import 'package:wafaq_x/presentation/widgets/lists/selection_mobile_list.dart';
 class SelectionMobilePage extends StatefulWidget {
   const SelectionMobilePage({Key? key}) : super(key: key);
 
-
-  static const String routeName = 'selectionDevicePage';
-
   @override
   _SelectionMobilePageState createState() => _SelectionMobilePageState();
 }

@@ -15,9 +15,6 @@ import 'package:wafaq_x/presentation/widgets/items_designs/mobile_feature_item_d
 
 class MobilePage extends StatelessWidget {
 
-
-
-  static String routeName = 'mobileScreen';
   late MobileModel _mobileModel;
   late Color _brandColor;
   final Helper _helper = Helper();

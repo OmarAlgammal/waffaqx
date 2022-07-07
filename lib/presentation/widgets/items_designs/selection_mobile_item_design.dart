@@ -4,6 +4,7 @@ import 'package:wafaq_x/presentation/constants/constantsColors.dart';
 import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
 import 'package:wafaq_x/presentation/entities/arguments/mobile_page_arguments.dart';
 import 'package:wafaq_x/presentation/pages/mobile_page.dart';
+import 'package:wafaq_x/presentation/utilities/routes.dart';
 
 class SelectionMobileItemDesign extends StatelessWidget {
   const SelectionMobileItemDesign({Key? key, required this.mobileWithTheme})
@@ -37,7 +38,7 @@ class SelectionMobileItemDesign extends StatelessWidget {
                 color: whiteColor,
               ),
               onPressed: () {
-                Navigator.pushNamed(context, MobilePage.routeName,
+                Navigator.pushNamed(context, AppRoutes.mobilePage,
                     arguments:
                         MobilePageArguments(mobileWithTheme: mobileWithTheme));
               },

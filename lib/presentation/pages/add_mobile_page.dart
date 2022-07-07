@@ -18,7 +18,6 @@ import 'package:wafaq_x/presentation/widgets/show_my_snack_bar.dart';
 class AddMobilePage extends StatefulWidget {
   const AddMobilePage({Key? key}) : super(key: key);
 
-  static String routeName = 'addMobileScreen';
   @override
   _AddMobilePageState createState() => _AddMobilePageState();
 }
