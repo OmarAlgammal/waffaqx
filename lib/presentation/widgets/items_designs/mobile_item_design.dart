@@ -1,17 +1,11 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wafaq_x/presentation/entities/requiredMobileModel.dart';
-import 'package:wafaq_x/presentation/bloc/glass_compatibilities_cubit/glass_compatibilities_bloc.dart';
-import 'package:wafaq_x/presentation/bloc/mobile_covers_compatibilities_cubit/mobile_covers_compatibities_bloc.dart';
-import 'package:wafaq_x/presentation/bloc/screens_compatibilities/screensCompatibilitiesBloc.dart';
-import 'package:wafaq_x/presentation/constants/constantsColors.dart';
-import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
-import 'package:wafaq_x/presentation/entities/arguments/compatibilities_page_arguments.dart';
-import 'package:wafaq_x/presentation/entities/arguments/mobile_page_arguments.dart';
-import 'package:wafaq_x/presentation/pages/compatibilities_page.dart';
-import 'package:wafaq_x/presentation/pages/mobile_page.dart';
-import 'package:wafaq_x/presentation/utilities/routes.dart';
+import 'package:wafaq_x/models/arguments/compatibilities_page_arguments.dart';
+import 'package:wafaq_x/models/arguments/mobile_page_arguments.dart';
+import 'package:wafaq_x/models/requiredMobileModel.dart';
+
+import '../../../utilities/constants/constantsColors.dart';
+import '../../../utilities/constants/constantsDimens.dart';
+import '../../../utilities/routes.dart';
 
 class MobileItemDesign extends StatelessWidget {
   const MobileItemDesign({Key? key, required this.mobileWithTheme}) : super(key: key);
@@ -23,15 +17,6 @@ class MobileItemDesign extends StatelessWidget {
       padding: paddingV4,
       child: ListTile(
         onTap: (){
-          BlocProvider.of<ScreensCompatibilitiesCubit>(context)
-              .loadScreensCompatibilities(requiredMobile: mobileWithTheme.mobileModel);
-
-          BlocProvider.of<MobileCoversCompatibilitiesCubit>(context)
-              .loadMobileCoversCompatibilities(mobileId: mobileWithTheme.mobileModel.mobileId);
-
-          BlocProvider.of<GlassCompatibilitiesCubit>(context)
-              .loadGlassCompatibilities(requiredMobile: mobileWithTheme.mobileModel);
-
           Navigator.pushNamed(context, AppRoutes.compatibilitiesPage, arguments: CompatibilitiesPageArgument(mobileWithTheme: mobileWithTheme));
         },
           contentPadding: paddingH8,

@@ -1,9 +1,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wafaq_x/presentation/constants/constantsColors.dart';
-import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
-import 'package:wafaq_x/presentation/constants/texts/texts.dart';
+
+import '../../utilities/constants/constantsColors.dart';
+import '../../utilities/constants/constantsDimens.dart';
+import '../../utilities/constants/texts/texts.dart';
 
 class SearchBox extends StatelessWidget {
   const SearchBox({Key? key, this.title, required this.onPressed}) : super(key: key);

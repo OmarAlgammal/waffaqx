@@ -1,8 +1,8 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:wafaq_x/presentation/constants/constantsColors.dart';
-import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
+import 'package:wafaq_x/utilities/constants/constantsColors.dart';
+import '../../../utilities/constants/constantsDimens.dart';
 
 class ThickDivider extends StatelessWidget {
   const ThickDivider({Key? key}) : super(key: key);

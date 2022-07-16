@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wafaq_x/data/data_source/firebase_data_source.dart';
-import 'package:wafaq_x/data/repos/mobiles_repository_impl.dart';
-import 'package:wafaq_x/domain/use_cases/mobiles_use_cases.dart';
-import 'package:wafaq_x/presentation/bloc/add_mobile_cubit/add_mobile_cubit.dart';
-import 'package:wafaq_x/presentation/bloc/add_mobile_cubit/add_mobile_state.dart';
-import 'package:wafaq_x/presentation/constants/texts/texts.dart';
-import 'package:wafaq_x/data/entities/mobile_model.dart';
-import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
-import 'package:wafaq_x/presentation/helper/helper.dart';
-import 'package:wafaq_x/presentation/widgets/buttons/loading_button.dart';
+import 'package:wafaq_x/controllers/add_mobile_cubit/add_mobile_states.dart';
+import 'package:wafaq_x/models/mobile_model/mobile_model.dart';
 import 'package:wafaq_x/presentation/widgets/buttons/circular_button.dart';
+import 'package:wafaq_x/presentation/widgets/buttons/loading_button.dart';
 import 'package:wafaq_x/presentation/widgets/show_my_snack_bar.dart';
-
+import '../../controllers/add_mobile_cubit/add_mobile_cubit.dart';
+import '../../utilities/constants/constantsDimens.dart';
+import '../../utilities/constants/texts/texts.dart';
+import '../../utilities/helper/helper.dart';
 
 
 class AddMobilePage extends StatefulWidget {
@@ -53,63 +49,59 @@ class _AddMobilePageState extends State<AddMobilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AddMobileCubit>(
-      create: (context) =>
-          AddMobileCubit(MobilesUseCases(MobilesRepositoryImpl(FirebaseDataSource()))),
-      child: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            title: const Text(
-              newPhoneSpecificationsText,
-            ),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: const Text(
+            newPhoneSpecificationsText,
           ),
-          body: Padding(
-            padding: padding8,
-            child: ListView(
-              padding: padding0,
-              children: [
-                gap8,
-                addNewMobileForm(),
-                gap24,
-                BlocConsumer<AddMobileCubit, AddMobileState>(
-                  listener: (context, state){
-                    if (state is MobileAddedSuccessfully){
-                      showMySnackBar(context: context, content: mobileAddedSuccessfullyText, color: Colors.green);
-                    }else if (state is AddingMobileFailure){
-                      showMySnackBar(context: context, content: anErrorOccurred, color: Colors.red);
+        ),
+        body: Padding(
+          padding: padding8,
+          child: ListView(
+            padding: padding0,
+            children: [
+              gap8,
+              addNewMobileForm(),
+              gap24,
+              BlocConsumer<AddMobileCubit, AddMobileState>(
+                listener: (context, state){
+                  if (state is MobileAddedSuccessfully){
+                    showMySnackBar(context: context, content: mobileAddedSuccessfullyText, color: Colors.green);
+                  }else if (state is FailedToAddMobile){
+                    showMySnackBar(context: context, content: anErrorOccurredText, color: Colors.red);
+                  }
+                },
+                builder: (context, state){
+                  if (state is AddingMobile){
+                    return const LoadingButton();
+                  }
+                  return CircularButton(text: additionText, filled: true, onPressed: (){
+                    if (mobileFromKey.currentState!.validate()){
+                      MobileModel mobileModel = MobileModel(
+                          brandName: _brandName,
+                          mobileId: mobileNameController.text,
+                          mobileName: mobileNameController.text,
+                          displaySize: _helper.toDouble(displaySizeController.text),
+                          processor: processorController.text,
+                          storageAndRam: _helper.splitTextToList(text: storageAndRamController.text),
+                          mainCameras: _helper.splitTextToList(text: mainCameraController.text),
+                          selfieCameras: _helper.splitTextToList(text: selfieCameraController.text),
+                          battery: batteryController.text,
+                          os: osController.text,
+                          hasNotch: _hasNotch
+                      );
+                      BlocProvider.of<AddMobileCubit>(context).addMobile(mobileModel: mobileModel);
                     }
-                  },
-                  builder: (context, state){
-                    if (state is AddingMobileInProgress){
-                      return const LoadingButton();
-                    }
-                    return CircularButton(text: additionText, filled: true, onPressed: (){
-                      if (mobileFromKey.currentState!.validate()){
-                        MobileModel mobileModel = MobileModel(
-                            brandName: _brandName,
-                            mobileId: mobileNameController.text,
-                            mobileName: mobileNameController.text,
-                            displaySize: _helper.toDouble(displaySizeController.text),
-                            processor: processorController.text,
-                            storageAndRam: _helper.splitTextToList(text: storageAndRamController.text),
-                            mainCameras: _helper.splitTextToList(text: mainCameraController.text),
-                            selfieCameras: _helper.splitTextToList(text: selfieCameraController.text),
-                            battery: batteryController.text,
-                            os: osController.text,
-                            hasNotch: _hasNotch
-                        );
-                        BlocProvider.of<AddMobileCubit>(context).addMobile(mobile: mobileModel);
-                      }
-                    });
+                  });
 
-                  },
+                },
 
-                ),
-                gap8,
-              ],
-            ),
+              ),
+              gap8,
+            ],
           ),
         ),
       ),

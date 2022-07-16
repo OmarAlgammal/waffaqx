@@ -1,8 +1,7 @@
 
-
 import 'package:flutter/cupertino.dart';
-import 'package:wafaq_x/presentation/constants/constantsColors.dart';
-import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
+import '../../../utilities/constants/constantsColors.dart';
+import '../../../utilities/constants/constantsDimens.dart';
 
 
 class SideTitle extends StatelessWidget {
@@ -18,8 +17,7 @@ class SideTitle extends StatelessWidget {
         title,
         style: const TextStyle(
           color: blackColor,
-          fontSize: size16,
-          decoration: TextDecoration.underline,
+          fontSize: size18,
         ),
       ),
     );

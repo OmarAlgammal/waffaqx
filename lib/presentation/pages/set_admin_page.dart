@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wafaq_x/data/data_source/firebase_data_source.dart';
-import 'package:wafaq_x/data/data_source/local_data_source.dart';
-import 'package:wafaq_x/data/entities/admin_model/admin_model.dart';
-import 'package:wafaq_x/data/repos/admins_repository_impl.dart';
-import 'package:wafaq_x/domain/use_cases/admins_use_cases.dart';
-import 'package:wafaq_x/presentation/bloc/set_admin_cubit/set_admin_cubit.dart';
-import 'package:wafaq_x/presentation/bloc/set_admin_cubit/set_admin_state.dart';
-import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
-import 'package:wafaq_x/presentation/constants/texts/texts.dart';
-import 'package:wafaq_x/presentation/widgets/buttons/circular_button.dart';
+import 'package:wafaq_x/controllers/set_admin_cubit/set_admin_cubit.dart';
+import 'package:wafaq_x/controllers/set_admin_cubit/set_admin_state.dart';
 import 'package:wafaq_x/presentation/widgets/buttons/loading_button.dart';
-import 'package:wafaq_x/presentation/widgets/texts/side_title.dart';
 import 'package:wafaq_x/presentation/widgets/show_my_snack_bar.dart';
+import 'package:wafaq_x/presentation/widgets/texts/side_title.dart';
+
+import '../../models/admin_model/admin_model.dart';
+import '../../utilities/constants/constantsDimens.dart';
+import '../../utilities/constants/texts/texts.dart';
+import '../widgets/buttons/circular_button.dart';
 
 class SetAdminPage extends StatefulWidget {
   const SetAdminPage({Key? key}) : super(key: key);
@@ -42,105 +39,102 @@ class _SetAdminPageState extends State<SetAdminPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<SetAdminCubit>(
-      create: (context) => SetAdminCubit(AdminsUseCases(AdminsRepositoryImpl(FirebaseDataSource(), LocalDataSource()))),
-      child: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            title: const Text(
-              setNewAdminText,
-            ),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: const Text(
+            setNewAdminText,
           ),
-          body: Padding(
-            padding: paddingH16,
-            child: ListView(
-              padding: padding0,
-              children: [
-                gap8,
-                addNewMobileForm(),
-                gap24,
-                const SideTitle(title: powersText),
-                Row(
-                  children: [
-                    Checkbox(
-                        value: addMobilesPowerValue,
-                        onChanged: (value){
-                          setState(() {
-                            addMobilesPowerValue = value!;
-                          });
-                        }
-                    ),
-                    const Text(
-                      addMobilesText,
-                    )
-                  ],
-                )
-                ,Row(
-                  children: [
-                    Checkbox(
-                        value: addCoversPowerValue,
-                        onChanged: (value){
-                          setState(() {
-                            addCoversPowerValue = value!;
-                          });
-                        }
-                    ),
-                    const Text(
-                      addCoversCompatibilitiesText,
-                    ),
-                    Checkbox(
-                        value: deleteCoversPowerValue,
-                        onChanged: (value){
-                          setState(() {
-                            deleteCoversPowerValue = value!;
-                          });
-                        }
-                    ),
-                    const Text(
-                      deleteCoversCompatibilitiesText,
-                    ),
-                  ],
-                ),
-                gap56,
-                BlocConsumer<SetAdminCubit, SetAdminState>(
-                  listener: (context, state){
-                    if (state is AdminSetSuccessfully){
-                      showMySnackBar(context: context, content: adminAddedSuccessfullyText, color: Colors.green);
-                    }else if (state is SetAdminFailure){
-                      showMySnackBar(context: context, content: anErrorOccurred, color: Colors.red);
-                    }
-                  },
-                  builder: (context, state){
-                    if (state is SetAdminInProgress){
-                      return const LoadingButton();
-                    }
-                    return CircularButton(text: additionText, filled: true, onPressed: (){
-                      if (adminFromKey.currentState!.validate()){
-
-                        AdminModel adminModel = AdminModel(
-                            name: nameController.text,
-                            email: emailController.text,
-                            password: passwordController.text,
-                            mobileNumber: mobileNumController.text,
-                            storeName: storeNameController.text,
-                            address: addressController.text,
-                            addMobiles: addMobilesPowerValue,
-                            deleteMobiles: deleteMobilesPowerValue,
-                            addCovers: addCoversPowerValue,
-                            deleteCovers: deleteCoversPowerValue,
-                            addGlasses: addGlassesPowerValue,
-                            deleteGlasses: deleteGlassesPowerValue
-                        );
-                        BlocProvider.of<SetAdminCubit>(context).setAdmin(adminModel: adminModel);
+        ),
+        body: Padding(
+          padding: paddingH16,
+          child: ListView(
+            padding: padding0,
+            children: [
+              gap8,
+              addNewMobileForm(),
+              gap24,
+              const SideTitle(title: powersText),
+              Row(
+                children: [
+                  Checkbox(
+                      value: addMobilesPowerValue,
+                      onChanged: (value){
+                        setState(() {
+                          addMobilesPowerValue = value!;
+                        });
                       }
-                    },);
-                  },
-                ),
-                gap8,
-              ],
-            ),
+                  ),
+                  const Text(
+                    addMobilesText,
+                  )
+                ],
+              )
+              ,Row(
+                children: [
+                  Checkbox(
+                      value: addCoversPowerValue,
+                      onChanged: (value){
+                        setState(() {
+                          addCoversPowerValue = value!;
+                        });
+                      }
+                  ),
+                  const Text(
+                    addCoversCompatibilitiesText,
+                  ),
+                  Checkbox(
+                      value: deleteCoversPowerValue,
+                      onChanged: (value){
+                        setState(() {
+                          deleteCoversPowerValue = value!;
+                        });
+                      }
+                  ),
+                  const Text(
+                    deleteCoversCompatibilitiesText,
+                  ),
+                ],
+              ),
+              gap56,
+              BlocConsumer<SetAdminCubit, SetAdminState>(
+                listener: (context, state){
+                  if (state is AdminAddedSuccessfully){
+                    showMySnackBar(context: context, content: adminAddedSuccessfullyText, color: Colors.green);
+                  }else if (state is FailedToAddAdmin){
+                    showMySnackBar(context: context, content: anErrorOccurredText, color: Colors.red);
+                  }
+                },
+                builder: (context, state){
+                  if (state is SetAdminInProgress){
+                    return const LoadingButton();
+                  }
+                  return CircularButton(text: additionText, filled: true, onPressed: (){
+                    if (adminFromKey.currentState!.validate()){
+
+                      AdminModel adminModel = AdminModel(
+                          name: nameController.text,
+                          email: emailController.text,
+                          password: passwordController.text,
+                          mobileNumber: mobileNumController.text,
+                          storeName: storeNameController.text,
+                          address: addressController.text,
+                          addMobiles: addMobilesPowerValue,
+                          deleteMobiles: deleteMobilesPowerValue,
+                          addCovers: addCoversPowerValue,
+                          deleteCovers: deleteCoversPowerValue,
+                          addGlasses: addGlassesPowerValue,
+                          deleteGlasses: deleteGlassesPowerValue
+                      );
+                      BlocProvider.of<SetAdminCubit>(context).setAdmin(adminModel: adminModel);
+                    }
+                  },);
+                },
+              ),
+              gap8,
+            ],
           ),
         ),
       ),

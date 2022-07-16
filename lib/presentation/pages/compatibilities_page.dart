@@ -1,25 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wafaq_x/data/entities/mobile_model.dart';
-import 'package:wafaq_x/presentation/bloc/glass_compatibilities_cubit/compatibilities_states.dart';
-import 'package:wafaq_x/presentation/bloc/glass_compatibilities_cubit/glass_compatibilities_bloc.dart';
-import 'package:wafaq_x/presentation/bloc/mobile_covers_compatibilities_cubit/mobile_covers_compatibilities_state.dart';
-import 'package:wafaq_x/presentation/bloc/mobile_covers_compatibilities_cubit/mobile_covers_compatibities_bloc.dart';
-import 'package:wafaq_x/presentation/bloc/screens_compatibilities/screensCompatibilitiesBloc.dart';
-import 'package:wafaq_x/presentation/bloc/screens_compatibilities/screens_compatibilities_states.dart';
-import 'package:wafaq_x/presentation/constants/texts/texts.dart';
-import 'package:wafaq_x/presentation/entities/requiredMobileModel.dart';
-import 'package:wafaq_x/presentation/constants/constantsColors.dart';
-import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
-import 'package:wafaq_x/presentation/entities/arguments/compatibilities_page_arguments.dart';
-import 'package:wafaq_x/presentation/extensions/wrappedRoundedCorner.dart';
+import 'package:wafaq_x/controllers/compatibilities_controller.dart';
+import 'package:wafaq_x/models/arguments/compatibilities_page_arguments.dart';
+import 'package:wafaq_x/models/mobile_model/mobile_model.dart';
+import 'package:wafaq_x/models/requiredMobileModel.dart';
 import 'package:wafaq_x/presentation/widgets/images/brandLogo.dart';
-import 'package:wafaq_x/presentation/widgets/lists/compatibilities_list.dart';
+import 'package:wafaq_x/presentation/widgets/dividers/skinnyDivider.dart';
+import 'package:wafaq_x/presentation/widgets/lists/mobiles_list.dart';
 import 'package:wafaq_x/presentation/widgets/texts/error_occurred.dart';
 import 'package:wafaq_x/presentation/widgets/texts/loading.dart';
-import 'package:wafaq_x/presentation/widgets/dividers/skinnyDivider.dart';
 import 'package:wafaq_x/presentation/widgets/texts/no_results_found.dart';
 import 'package:wafaq_x/presentation/widgets/texts/side_title.dart';
+import 'package:wafaq_x/utilities/enums/compatibilities.dart';
+import 'package:wafaq_x/utilities/extensions/wrappedRoundedCorner.dart';
+import 'package:wafaq_x/utilities/helper/mobiles_filtration_helper.dart';
+import '../../utilities/constants/constantsColors.dart';
+import '../../utilities/constants/constantsDimens.dart';
+import '../../utilities/constants/texts/texts.dart';
 import '../widgets/texts/helper_text.dart';
 
 class CompatibilitiesPage extends StatefulWidget {
@@ -32,10 +28,12 @@ class CompatibilitiesPage extends StatefulWidget {
 
 class _CompatibilitiesPageState extends State<CompatibilitiesPage> {
   late CompatibilitiesPageArgument arguments;
+  
+  CompatibilitiesController _compatibilitiesController = CompatibilitiesController();
 
-  bool _screenSelected = true;
-  bool _coversSelected = false;
-  bool _glassSelected = false;
+  MobilesFiltrationHelper _filtrationHelper = MobilesFiltrationHelper();
+
+  Compatibilities type = Compatibilities.screens;
   late List<MobileWithThemeModel> _mobilesWithTheme;
   late MobileModel mobileModel;
   late String brandLogo;
@@ -84,12 +82,10 @@ class _CompatibilitiesPageState extends State<CompatibilitiesPage> {
                     ),
                   ),
                   Checkbox(
-                    value: _glassSelected,
+                    value: (type == Compatibilities.glasse)? true: false,
                     onChanged: (value) {
                       setState(() {
-                        _glassSelected = true;
-                        _coversSelected = _screenSelected = false;
-
+                        type = Compatibilities.glasse;
                       });
                     },
                   ),
@@ -101,12 +97,10 @@ class _CompatibilitiesPageState extends State<CompatibilitiesPage> {
                     ),
                   ),
                   Checkbox(
-                    value: _coversSelected,
+                    value: (type == Compatibilities.covers)? true: false,
                     onChanged: (value) {
                       setState(() {
-                        _coversSelected = true;
-                        _glassSelected = _screenSelected = false;
-
+                        type = Compatibilities.covers;
                       });
                     },
                   ),
@@ -118,11 +112,10 @@ class _CompatibilitiesPageState extends State<CompatibilitiesPage> {
                     ),
                   ),
                   Checkbox(
-                    value: _screenSelected,
+                    value: (type == Compatibilities.screens)? true: false,
                     onChanged: (value) {
                       setState(() {
-                        _screenSelected = true;
-                        _glassSelected = _coversSelected = false;
+                        type = Compatibilities.screens;
                       });
                     },
                   ),
@@ -132,79 +125,70 @@ class _CompatibilitiesPageState extends State<CompatibilitiesPage> {
               const SkinnyDivider(),
               gap8,
               const SideTitle(title: compatibilitiesText),
-// list of results
-              compatibilitiesList(),
 
-
+            if (type == Compatibilities.screens || type == Compatibilities.glasse)
+              screensAndGlassCompList(),
+             if (type == Compatibilities.covers)
+               coverCompatibilitiesList(),
             ],
           )),
     );
   }
 
-  compatibilitiesList(){
-// if user selected screen compatibilities
-    if (_screenSelected){
-      return BlocBuilder<ScreensCompatibilitiesCubit, ScreensCompatibilitiesState>(
-        builder: (context, state){
-          if (state is ScreensCompatibilitiesLoadInProgress){
-            return const Loading();
-          }
-          else if (state is ScreensCompatibilitiesLoadSuccess){
-            _mobilesWithTheme = state.mobilesWithTheme;
-            if (state.mobilesWithTheme.isEmpty){
-              return const NoResultsFound();
-            }else{
-              return CompatibilitiesList(mobilesWithTheme: _mobilesWithTheme);
+  coverCompatibilitiesList(){
+    return StreamBuilder<List<List<MobileModel>>>(
+      stream: _compatibilitiesController.coverCompatibilities(myMobile: arguments.mobileWithTheme.mobileModel),
+      builder: (context, snapshot){
+        if (snapshot.hasData){
+          if (snapshot.connectionState == ConnectionState.waiting)
+            return Loading();
+
+          for (final mobiles in snapshot.data!){
+            if (mobiles.isNotEmpty){
+              final mobilesWithTheme = _filtrationHelper.getMobilesArrangementWithTheme(mobiles);
+              return MobilesList(mobilesWithTheme: mobilesWithTheme);
             }
+            return SizedBox();
           }
+          return NoResultsFound();
+        }else
+          return NoResultsFound();
+      },
+    );
+  }
+
+  screensAndGlassCompList() {
+    return StreamBuilder<List<MobileModel>>(
+      stream: _compatibilitiesController.compatibilities(type: type, mobile: arguments.mobileWithTheme.mobileModel),
+      builder: (context, snapshot){
+        if (snapshot.hasData){
+          if (snapshot.connectionState == ConnectionState.waiting)
+            return Loading();
           else {
-            return const ErrorOccurred();
-          }
-        },
-      );
-    }
-// if user select covers compatibilities
-    else if (_coversSelected){
-      return BlocBuilder<MobileCoversCompatibilitiesCubit, MobileCoversCompatibilitiesState>(
-        builder: (context, state){
-          if (state is MobileCoversCompatibilitiesLoadInProgress){
-            return const Loading();
-          }
-          else if (state is MobileCoversCompatibilitiesLoadSuccess){
-            _mobilesWithTheme = state.mobilesWithThemeModel;
-            if (state.mobilesWithThemeModel.isEmpty){
-              return const NoResultsFound();
-            }else{
-              return CompatibilitiesList(mobilesWithTheme: _mobilesWithTheme);
+            if (snapshot.data!.isNotEmpty){
+
+              List<dynamic> result = snapshot.data!;
+              if (type == Compatibilities.screens)
+                result = _filtrationHelper.getScreensCompatibilities(mobiles: snapshot.data!, mobile: arguments.mobileWithTheme.mobileModel);
+              else if (type == Compatibilities.glasse)
+                result = _filtrationHelper.getGlassCompatibilities(mobiles: snapshot.data!, mobile: arguments.mobileWithTheme.mobileModel);
+
+              result = _filtrationHelper.getMobilesArrangementWithTheme(result);
+
+              if (result.isNotEmpty)
+                return MobilesList(mobilesWithTheme: result as List<MobileWithThemeModel>);
+              else
+                return NoResultsFound();
+
             }
+            else
+              return NoResultsFound();
           }
-          else {
-            return const ErrorOccurred();
-          }
-        },
-      );
-    }
-// if user select glass compatibilities
-    else{
-      return BlocBuilder<GlassCompatibilitiesCubit, GlassCompatibilitiesState>(
-        builder: (context, state){
-          if (state is MobileCoversCompatibilitiesLoadInProgress){
-            return const Loading();
-          }
-          else if (state is GlassCompatibilitiesLoadSuccess){
-            _mobilesWithTheme = state.mobilesWithTheme;
-            if (state.mobilesWithTheme.isEmpty){
-              return const NoResultsFound();
-            }else{
-              return CompatibilitiesList(mobilesWithTheme: _mobilesWithTheme);
-            }
-          }
-          else {
-            return const ErrorOccurred();
-          }
-        },
-      );
-    }
+        }
+        else
+          return NoResultsFound();
+      },
+    );
   }
 
 }

@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:wafaq_x/presentation/entities/requiredMobileModel.dart';
+import 'package:wafaq_x/models/requiredMobileModel.dart';
 import 'package:wafaq_x/presentation/widgets/items_designs/selection_mobile_item_design.dart';
 
 class SelectionMobileList extends StatelessWidget {

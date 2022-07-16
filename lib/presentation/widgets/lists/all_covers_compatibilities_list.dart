@@ -1,14 +1,12 @@
-
 import 'package:flutter/material.dart';
-import 'package:wafaq_x/presentation/entities/requiredMobileModel.dart';
-import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
+import 'package:wafaq_x/models/requiredMobileModel.dart';
 import 'package:wafaq_x/presentation/widgets/items_designs/all_covers_compatibilties_item_design.dart';
-import 'package:wafaq_x/presentation/widgets/dividers/skinnyDivider.dart';
 import 'package:wafaq_x/presentation/widgets/dividers/thickDivider.dart';
+
+import '../../../utilities/constants/constantsDimens.dart';
 
 class AllCoversCompatibilitiesList extends StatelessWidget {
   const AllCoversCompatibilitiesList({Key? key, required this.allCompatibilities}) : super(key: key);
-
 
   final List<List<MobileWithThemeModel>> allCompatibilities;
 
@@ -29,7 +27,7 @@ class AllCoversCompatibilitiesList extends StatelessWidget {
               physics: const  NeverScrollableScrollPhysics(),
               itemBuilder: (context, index){
                 print('mobiles with theme is ${mobilesWithTheme.length}');
-                return AllCoversCompatibilitiesListItemDesign(mobilesWithTheme: mobilesWithTheme, index: index,);
+                return AllCoversCompatibilitiesListItemDesign(mobileWithTheme: mobilesWithTheme[index], onPressed: (){},);
               },
             ),
             gap8,

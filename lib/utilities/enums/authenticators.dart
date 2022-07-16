@@ -1,0 +1,6 @@
+
+
+enum Authenticators{
+  admin,
+  user
+}

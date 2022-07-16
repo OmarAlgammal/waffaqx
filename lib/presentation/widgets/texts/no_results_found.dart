@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
+import '../../../utilities/constants/texts/texts.dart';
 
-import '../../constants/texts/texts.dart';
 
 class NoResultsFound extends StatelessWidget {
   const NoResultsFound({Key? key}) : super(key: key);

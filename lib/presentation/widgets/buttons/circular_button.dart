@@ -1,8 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:wafaq_x/presentation/constants/constantsColors.dart';
-import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
+
+import '../../../utilities/constants/constantsColors.dart';
+import '../../../utilities/constants/constantsDimens.dart';
 
 class CircularButton extends StatelessWidget {
   const CircularButton({Key? key, required this.text, this.filled = false, required this.onPressed}) : super(key: key);

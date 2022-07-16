@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:wafaq_x/presentation/entities/requiredMobileModel.dart';
+import 'package:wafaq_x/models/requiredMobileModel.dart';
 import 'package:wafaq_x/presentation/widgets/items_designs/compatibilities_item_design.dart';
 
 class CompatibilitiesList extends StatelessWidget {

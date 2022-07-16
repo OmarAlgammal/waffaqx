@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:wafaq_x/presentation/constants/constantsColors.dart';
-import 'package:wafaq_x/presentation/constants/constantsIcons.dart';
+import '../../../utilities/constants/constantsColors.dart';
+import '../../../utilities/constants/constantsIcons.dart';
 
 class RightArrowIconButton extends StatelessWidget {
   const RightArrowIconButton({Key? key, required this.onPressed}) : super(key: key);

@@ -1,8 +1,7 @@
 
-
 import 'package:flutter/material.dart';
+import '../../../utilities/constants/texts/texts.dart';
 
-import '../../constants/texts/texts.dart';
 
 class Loading extends StatelessWidget {
   const Loading({Key? key}) : super(key: key);

@@ -1,8 +1,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wafaq_x/presentation/constants/constantsColors.dart';
-import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
+
+
+import '../../../utilities/constants/constantsColors.dart';
+import '../../../utilities/constants/constantsDimens.dart';
 
 class SkinnyDivider extends StatelessWidget {
   const SkinnyDivider({Key? key}) : super(key: key);

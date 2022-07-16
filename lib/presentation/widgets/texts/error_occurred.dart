@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../constants/texts/texts.dart';
+import '../../../utilities/constants/texts/texts.dart';
 
 
 class ErrorOccurred extends StatelessWidget {
@@ -14,7 +14,7 @@ class ErrorOccurred extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: const [
         Text(
-          anErrorOccurred,
+          anErrorOccurredText,
         ),
       ],
     );

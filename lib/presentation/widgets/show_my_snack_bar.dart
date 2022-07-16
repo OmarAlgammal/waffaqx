@@ -1,7 +1,6 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
+import '../../utilities/constants/constantsDimens.dart';
 
 void showMySnackBar({required BuildContext context, required String content, required Color color}){
   ScaffoldMessenger.of(context).showSnackBar(

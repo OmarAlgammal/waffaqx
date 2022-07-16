@@ -1,9 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:wafaq_x/presentation/constants/texts/texts.dart';
-import 'package:wafaq_x/presentation/constants/constantsColors.dart';
-import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
 
+import '../../../utilities/constants/constantsColors.dart';
+import '../../../utilities/constants/constantsDimens.dart';
 
 class HelperText extends StatelessWidget {
   const HelperText({Key? key, required this.helperText}) : super(key: key);

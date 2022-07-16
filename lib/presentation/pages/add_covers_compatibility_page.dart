@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wafaq_x/presentation/entities/requiredMobileModel.dart';
-import 'package:wafaq_x/presentation/bloc/all_mobiles_cubit/all_mobiles_cubit.dart';
-import 'package:wafaq_x/presentation/bloc/dealing_with_cover_compatibilities_cubit/dealing_with_covers_compatibilities_cubit.dart';
-import 'package:wafaq_x/presentation/bloc/dealing_with_cover_compatibilities_cubit/dealing_with_covers_compatibilities_state.dart';
-import 'package:wafaq_x/presentation/constants/constantsColors.dart';
-import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
-import 'package:wafaq_x/presentation/constants/texts/texts.dart';
-import 'package:wafaq_x/presentation/pages/selection_mobile_page.dart';
-import 'package:wafaq_x/presentation/utilities/routes.dart';
+import 'package:wafaq_x/controllers/add_cover_compatibilities_cubit/add_cover_comp_cubit.dart';
+import 'package:wafaq_x/controllers/add_cover_compatibilities_cubit/add_cover_comp_state.dart';
+import 'package:wafaq_x/models/requiredMobileModel.dart';
 import 'package:wafaq_x/presentation/widgets/buttons/circular_button.dart';
 import 'package:wafaq_x/presentation/widgets/buttons/loading_button.dart';
 import 'package:wafaq_x/presentation/widgets/search_box.dart';
 import 'package:wafaq_x/presentation/widgets/show_my_snack_bar.dart';
+import 'package:wafaq_x/utilities/constants/constantsColors.dart';
+import 'package:wafaq_x/utilities/routes.dart';
+
+import '../../utilities/constants/constantsDimens.dart';
+import '../../utilities/constants/texts/texts.dart';
 
 class AddSelectionPage extends StatefulWidget {
   const AddSelectionPage({Key? key}) : super(key: key);
@@ -55,9 +54,8 @@ class _AddSelectionPageState
               SearchBox(
                 title: firstMobileName,
                 onPressed: () async {
-                  BlocProvider.of<AllMobilesCubit>(context).loadAllMobiles();
                   var result = await Navigator.pushNamed(
-                      context, AppRoutes.selectionMobilePage);
+                      context, AppRoutes.selectionMobilePage, arguments: selectFirstMobileText);
                   if (result != null) {
                     firstMobile = result as MobileWithThemeModel;
                     setState(() {
@@ -80,9 +78,8 @@ class _AddSelectionPageState
               SearchBox(
                 title: secondMobileName,
                 onPressed: () async {
-                  BlocProvider.of<AllMobilesCubit>(context).loadAllMobiles();
                   var result = await Navigator.pushNamed(
-                      context, AppRoutes.selectionMobilePage);
+                      context, AppRoutes.selectionMobilePage, arguments: selectSecondMobileText);
                   if (result != null) {
                     secondMobile = result as MobileWithThemeModel;
                     setState(() {
@@ -95,18 +92,17 @@ class _AddSelectionPageState
                 },
               ),
               gap24,
-              BlocConsumer<DealingWithCoversCompatibilitiesCubit, DealingWithCoversCompatibilitiesState>(
+              BlocConsumer<AddCoverCompCubit, AddCoverCompState>(
                   listener: (context, state) {
-                    if (state is CompatibilitiesAddedSuccessfully){
-
+                    if (state is CoverCompAddingSuccessfully){
                       return showMySnackBar(context: context, content: coversCompatibilityAddedSuccessfullyText, color: vodkaColor);
                     }
-                    else if (state is DealingWithCoversCompatibilitiesFailed){
-                      return showMySnackBar(context: context, content: anErrorOccurred, color: redColor);
+                    else if (state is AddingCoverCompFailed){
+                      return showMySnackBar(context: context, content: anErrorOccurredText, color: redColor);
                     }
                   },
                   builder: (context, state) {
-                    if (state is DealingWithCoversCompatibilitiesLoadInProgress) {
+                    if (state is AddingCoverComp) {
                       return const LoadingButton();
                     }
                     return CircularButton(
@@ -120,8 +116,8 @@ class _AddSelectionPageState
                             return showMySnackBar(context: context, content: firstMobileShouldNotEqualToSecondMobileText, color: redColor);
                           }
                           if (firstMobileName != secondMobileName) {
-                            BlocProvider.of<DealingWithCoversCompatibilitiesCubit>(context)
-                                .addCoversCompatibility(
+                            BlocProvider.of<AddCoverCompCubit>(context)
+                                .addCoverComp(
                                     firstMobile:
                                         firstMobile.mobileModel,
                                     secondMobile:

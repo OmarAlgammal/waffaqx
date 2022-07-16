@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:wafaq_x/presentation/constants/texts/paths.dart';
-import 'package:wafaq_x/presentation/constants/texts/texts.dart';
-import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
 import 'package:wafaq_x/presentation/widgets/images/image_from_assets.dart';
+
+import '../../../utilities/constants/constantsDimens.dart';
+import '../../../utilities/constants/texts/paths.dart';
+import '../../../utilities/constants/texts/texts.dart';
 
 
 class SearchResultHelper extends StatelessWidget {

@@ -1,23 +1,21 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wafaq_x/presentation/entities/requiredMobileModel.dart';
-import 'package:wafaq_x/presentation/bloc/dealing_with_cover_compatibilities_cubit/dealing_with_covers_compatibilities_cubit.dart';
-import 'package:wafaq_x/presentation/bloc/dealing_with_cover_compatibilities_cubit/dealing_with_covers_compatibilities_state.dart';
-import 'package:wafaq_x/presentation/constants/constantsColors.dart';
-import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
-import 'package:wafaq_x/presentation/constants/constantsIcons.dart';
-import 'package:wafaq_x/presentation/entities/arguments/compatibilities_page_arguments.dart';
-import 'package:wafaq_x/presentation/pages/compatibilities_page.dart';
-import 'package:wafaq_x/presentation/utilities/routes.dart';
+import 'package:wafaq_x/controllers/delete_comp_cubit/delete_comp_cubit.dart';
+import 'package:wafaq_x/models/arguments/compatibilities_page_arguments.dart';
+import 'package:wafaq_x/models/requiredMobileModel.dart';
+
+import '../../../utilities/constants/constantsColors.dart';
+import '../../../utilities/constants/constantsDimens.dart';
+import '../../../utilities/constants/constantsIcons.dart';
+import '../../../utilities/routes.dart';
 
 
 class AllCoversCompatibilitiesListItemDesign extends StatelessWidget {
-  const AllCoversCompatibilitiesListItemDesign({Key? key, required this.mobilesWithTheme, required this.index}) : super(key: key);
+  const AllCoversCompatibilitiesListItemDesign({Key? key, required this.mobileWithTheme, required this.onPressed}) : super(key: key);
 
-  final List<MobileWithThemeModel> mobilesWithTheme;
-  final int index;
-
+  final MobileWithThemeModel mobileWithTheme;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +27,15 @@ class AllCoversCompatibilitiesListItemDesign extends StatelessWidget {
         padding: paddingV4,
         child: ListTile(
             contentPadding: paddingH8,
-            tileColor: mobilesWithTheme[index].brandColor,
+            tileColor: mobileWithTheme.brandColor,
             shape: const RoundedRectangleBorder(
               borderRadius: circular12,
             ),
             onTap: (){
-              Navigator.pushNamed(context, AppRoutes.compatibilitiesPage, arguments: CompatibilitiesPageArgument(mobileWithTheme: mobilesWithTheme[index]));
+              Navigator.pushNamed(context, AppRoutes.compatibilitiesPage, arguments: CompatibilitiesPageArgument(mobileWithTheme: mobileWithTheme));
             },
             title: Text(
-              mobilesWithTheme[index].mobileModel.mobileName,
+              mobileWithTheme.mobileModel.mobileName,
               style: const TextStyle(color: whiteColor),
             ),
             trailing: IconButton(
@@ -46,9 +44,7 @@ class AllCoversCompatibilitiesListItemDesign extends StatelessWidget {
                 removeCircularIcon,
                 color: whiteColor,
               ),
-              onPressed: (){
-                BlocProvider.of<DealingWithCoversCompatibilitiesCubit>(context).deleteCoversCompatibilities(mobilesWithTheme: mobilesWithTheme, index: index);
-              },
+              onPressed: onPressed,
             )
         ),
       ),

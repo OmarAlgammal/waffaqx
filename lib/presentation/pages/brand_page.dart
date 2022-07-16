@@ -1,29 +1,25 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wafaq_x/data/data_source/firebase_data_source.dart';
-import 'package:wafaq_x/data/repos/compatibilities_repository_impl.dart';
-import 'package:wafaq_x/data/repos/mobiles_repository_impl.dart';
-import 'package:wafaq_x/domain/use_cases/compatibilities_use_cases.dart';
-import 'package:wafaq_x/presentation/bloc/brand_mobiles_cubit/brand_mobiles_cubit.dart';
-import 'package:wafaq_x/presentation/bloc/brand_mobiles_cubit/brand_mobiles_states.dart';
-import 'package:wafaq_x/presentation/constants/texts/texts.dart';
-import 'package:wafaq_x/presentation/constants/constantsColors.dart';
-import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
+import 'package:wafaq_x/controllers/mobiles_bloc/mobiles_bloc.dart';
+import 'package:wafaq_x/controllers/mobiles_bloc/mobiles_event.dart';
+import 'package:wafaq_x/controllers/mobiles_bloc/mobiles_state.dart';
+import 'package:wafaq_x/models/arguments/brandScreenArguments.dart';
 import 'package:wafaq_x/presentation/widgets/icons/right_arrow_icon_button.dart';
 import 'package:wafaq_x/presentation/widgets/images/brandLogo.dart';
-import 'package:wafaq_x/presentation/widgets/images/mobiles_empty.dart';
+import 'package:wafaq_x/presentation/widgets/images/mobiles_list_is_empty.dart';
+import 'package:wafaq_x/presentation/widgets/lists/mobiles_list.dart';
+import 'package:wafaq_x/presentation/widgets/texts/error_occurred.dart';
+import 'package:wafaq_x/presentation/widgets/texts/loading.dart';
+import 'package:wafaq_x/presentation/widgets/texts/no_results_found.dart';
 import 'package:wafaq_x/presentation/widgets/texts/side_title.dart';
 import 'package:wafaq_x/presentation/widgets/icons/wipe_icon_button.dart';
 import 'package:wafaq_x/presentation/widgets/icons/search_icon.dart';
-import 'package:wafaq_x/presentation/helper/mobiles_filtration_helper.dart';
-import 'package:wafaq_x/presentation/widgets/texts/error_occurred.dart';
-import 'package:wafaq_x/presentation/widgets/lists/mobiles_list.dart';
-import 'package:wafaq_x/presentation/widgets/texts/loading.dart';
-import 'package:wafaq_x/presentation/widgets/texts/no_results_found.dart';
-import '../entities/arguments/brandScreenArguments.dart';
+import '../../utilities/constants/constantsColors.dart';
+import '../../utilities/constants/constantsDimens.dart';
+import '../../utilities/constants/texts/texts.dart';
+import '../../utilities/helper/mobiles_filtration_helper.dart';
+
 
 class BrandPage extends StatefulWidget {
   const BrandPage({Key? key}) : super(key: key);
@@ -36,52 +32,58 @@ class BrandPage extends StatefulWidget {
 class _BrandPageState extends State<BrandPage> {
   late BrandScreenArguments arguments;
 
-  final MobilesFiltrationHelper _mobilesFiltrationHelper =
+  final MobilesFiltrationHelper _filtrationHelper =
       MobilesFiltrationHelper();
   final TextEditingController _searchController = TextEditingController();
-  bool searching = false;
-  bool noSearchResult = false;
+  bool _searching = false;
+  bool _noSearchResult = false;
 
   @override
   Widget build(BuildContext context) {
     arguments =
         ModalRoute.of(context)!.settings.arguments as BrandScreenArguments;
-    return BlocProvider<BrandMobilesCubit>(
-      create: (context) => BrandMobilesCubit(CompatibilitiesUseCases(CompatibilitiesRepositoryImpl(FirebaseDataSource()),
-        MobilesRepositoryImpl(FirebaseDataSource())),)..loadBrandMobiles(brandName: arguments.brandName),
-      child:  Scaffold(
-          backgroundColor: whiteColor,
-          appBar: searching ? appBarForSearch() : myAppBar(),
-          body: Padding(
-            padding: padding8,
-            child: Column(
-              children: [
-                const SideTitle(title: mobilesListText),
-                BlocBuilder<BrandMobilesCubit, BrandMobilesState>(
-                    builder: (context, state) {
-                      if (state is BrandMobilesLoadInProgress) {
-                        return const Loading();
-                      } else if (state is BrandMobilesLoadSuccess) {
+    BlocProvider.of<MobilesBloc>(context).add(LoadBrandMobiles(brandName: arguments.brandName));
 
-                        var searchResults = _mobilesFiltrationHelper.filterSearchResults(mobilesWithTheme: state.mobilesWithTheme, searchText: _searchController.text);
-
-                        if (searching && searchResults.isEmpty){
-                          return const NoResultsFound();
-                        }
-                        else if (!searching && searchResults.isEmpty){
-                          return const MobilesEmpty();
-                        }
-                        else{
-                          return MobilesList(mobilesWithTheme: searchResults);
-                        }
-                      } else {
-                        return const ErrorOccurred();
-                      }
-                    })
-              ],
-            ),
-          )),
-    );
+    return Scaffold(
+        backgroundColor: whiteColor,
+        appBar: _searching ? appBarForSearch() : myAppBar(),
+        body: Padding(
+          padding: padding8,
+          child: Column(
+            children: [
+              const SideTitle(title: mobilesListText),
+              BlocBuilder<MobilesBloc, MobilesState>(
+                buildWhen: (context, state){
+                  if (state is BrandMobilesLoadSuccessfully || state is MobilesLoading || state is MobilesLoadedFailed)
+                    return true;
+                  return false;
+                },
+                builder: (context, state){
+                  if (state is MobilesLoading){
+                    return const Loading();
+                  }
+                  else if (state is BrandMobilesLoadSuccessfully){
+                    var searchResults = _filtrationHelper.getSearchResultWithTheme(mobilesWithTheme: state.mobilesWithTheme, searchText: _searchController.text);
+                    if (_searching){
+                      if (searchResults.isNotEmpty)
+                        return MobilesList(mobilesWithTheme: searchResults);
+                      return NoResultsFound();
+                    }
+                    if (state.mobilesWithTheme.isEmpty){
+                      return const MobilesListIsEmpty();
+                    }
+                    else {
+                      return MobilesList(mobilesWithTheme: searchResults);
+                    }
+                  }
+                  else {
+                    return const ErrorOccurred();
+                  }
+                },
+              )
+            ],
+          ),
+        ));
   }
 
   AppBar myAppBar() {
@@ -100,7 +102,7 @@ class _BrandPageState extends State<BrandPage> {
       actions: [
         SearchIcon(onPressed: (){
           setState(() {
-            searching = true;
+            _searching = true;
           });
         },),
         gap16
@@ -144,13 +146,12 @@ class _BrandPageState extends State<BrandPage> {
         WipeIcon(onPressed: (){
           setState(() {
             _searchController.clear();
-            searching = false;
           });
         },),
         gap8,
         RightArrowIconButton(onPressed: (){
           setState(() {
-            searching = false;
+            _searching = false;
           });
         }),
       ],

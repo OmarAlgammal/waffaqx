@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:wafaq_x/presentation/constants/texts/paths.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:wafaq_x/presentation/widgets/icons/icon_from_assets.dart';
-import 'package:wafaq_x/presentation/constants/constantsDimens.dart';
+
+import '../../../utilities/constants/constantsDimens.dart';
+import '../../../utilities/constants/texts/paths.dart';
 
 
 class SearchIcon extends StatelessWidget {
