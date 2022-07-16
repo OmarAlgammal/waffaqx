@@ -44,7 +44,7 @@ class _SelectionMobilePageState extends State<SelectionMobilePage> {
             child: ListView(
               children: [
                 gap24,
-                const HelperText(helperText: selectFirstDeviceText),
+                HelperText(helperText: selectFirstMobileText),
                 gap24,
                 Row(
                   children: [
